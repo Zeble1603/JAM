@@ -18,8 +18,7 @@ const userSchema = new Schema({
   //Hosts
   jamsCreated:[{type:Schema.Types.ObjectId, ref:'Jam'}],
   jamsPassed:[{type:Schema.Types.ObjectId, ref:'Jam'}],
-  rating: [{type:Schema.Types.ObjectId, ref:'Jam'}],
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  rating: {type:Number},
   places: [{ type: Schema.Types.ObjectId, ref: 'Place' }],
 });
 

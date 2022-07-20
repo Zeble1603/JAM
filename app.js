@@ -16,6 +16,8 @@ app.use("/api", allRoutes);
 const authRouter = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
+const placeRoutes = require("./routes/place.routes");
+app.use("/api", placeRoutes);
 
 
 // app.use((req, res, next) => {

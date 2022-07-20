@@ -30,7 +30,7 @@ router.post('/comments', (req, res, next) => {
       res.status(400).json({ message: 'Specified id is not valid' });
       return;
     }
-   
+  
     Comment.findByIdAndUpdate(commentId, req.body, { new: true })
       .then((updatedComment) => res.json(updatedComment))
       .catch(error => res.json(error));
@@ -44,11 +44,11 @@ router.post('/comments', (req, res, next) => {
       res.status(400).json({ message: 'Specified id is not valid' });
       return;
     }
-   
-    Comment.findByIdAndRemove(commentId)
+  
+    Comment.findByIdAndDelete(commentId)
       .then(() => res.json({ message: `Project with ${commentId} is removed successfully.` }))
       .catch(error => res.json(error));
   });
-   
+  
 
   module.exports = router;

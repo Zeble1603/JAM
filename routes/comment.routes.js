@@ -5,7 +5,7 @@ const Comment = require('../models/Comment.model');
 // Getting all the comments
 router.get('/comments',(req,res,next)=>{
     Comment.find()
-    .populate('user')
+    .populate('autor')
     .then(allComments => res.json(allComments))
     .catch(err => res.json(err));
 })
@@ -13,7 +13,7 @@ router.get('/comments',(req,res,next)=>{
 //Creating a new comment
 router.post('/comments', (req, res, next) => {
     const { title, description, userId,rating,photos } = req.body;
-   
+  
     Comment.create({ title, description, autor: userId,rating,photos })
       .then(newComment => {
         return User.findByIdAndUpdate(userId, { $push: { comment: newComment._id } } );
@@ -25,7 +25,7 @@ router.post('/comments', (req, res, next) => {
   //Modify a comment
   router.put('/comments/:commentId', (req, res, next) => {
     const { commentId } = req.params;
-   
+  
     if (!mongoose.Types.ObjectId.isValid(commentId)) {
       res.status(400).json({ message: 'Specified id is not valid' });
       return;

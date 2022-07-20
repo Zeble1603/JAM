@@ -6,7 +6,8 @@ const commentSchema = new Schema({
   title:{type:String,required:true},
   description:{type:String,required:true},
   rating:{type:Number,required:true},
-  photos:{type:String}
+  photos:{type:String},
+  date:{type: Date, default: Date.now },
 });
 
 module.exports = model("Comment", commentSchema);

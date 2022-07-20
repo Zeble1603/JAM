@@ -57,3 +57,5 @@ router.delete('/user/:userId',(req,res,next)=>{
     .then(() => res.json({message: `Place with id ${userId} was removed succesfully`}))
     .catch((err)=>next(err))
 })
+
+module.exports = router;

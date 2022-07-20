@@ -7,11 +7,12 @@ const User = require('../models/User.model');
 //GET
 router.get('/places',(req,res,next)=>{
     Place.find()
-    .populate('users')
+    .populate('owner')
+    .populate('jams')
     .then((allPlace)=>{
         res.json(allPlace)
     })
-    .catch(err=>next(err))
+    .catch(err=>res.json(err))
 })
 
 router.get('/places/:placeId',(req,res,next)=>{
@@ -21,17 +22,18 @@ router.get('/places/:placeId',(req,res,next)=>{
         return;
     }
     Place.findById(placeId)
-    .populate('users')
+    .populate('owner')
+    .populate('jams')
     .then((foundPlace)=>{
         res.json(foundPlace)
     })
-    .catch(err=>next(err))
+    .catch(err=>res.json(err))
 })
 
 //POST --> ADD USERS CASTING WITH USER ID
 router.post('/places',(req,res,next)=>{
-    const {name, address, photos} = req.body
-    Place.create({name, address, photos})
+    const {name, address, photos, userId} = req.body
+    Place.create({name, address, photos, owner:userId})
     .then((place)=>{
         return User.findByIdAndUpdate(userId,{$push: { places: place._id }})
     })

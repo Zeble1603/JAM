@@ -30,7 +30,7 @@ router.post('/comments', (req, res, next) => {
       .catch(err => res.json(err));
   });
 
-  //Modify a comment
+  //Modify a cooment
   router.put('/comments/:commentId', (req, res, next) => {
     const { commentId } = req.params;
    
@@ -43,18 +43,3 @@ router.post('/comments', (req, res, next) => {
       .then((updatedComment) => res.json(updatedComment))
       .catch(error => res.json(error));
   });
-
-  //Delete a comment
-  router.delete('/comment/:commentId', (req, res, next) => {
-    const { commentId } = req.params;
-    
-    if (!mongoose.Types.ObjectId.isValid(commentId)) {
-      res.status(400).json({ message: 'Specified id is not valid' });
-      return;
-    }
-   
-    Comment.findByIdAndRemove(commentId)
-      .then(() => res.json({ message: `Project with ${commentId} is removed successfully.` }))
-      .catch(error => res.json(error));
-  });
-   

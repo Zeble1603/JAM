@@ -19,6 +19,10 @@ app.use("/api/auth", authRouter);
 const placeRoutes = require("./routes/place.routes");
 app.use("/api", placeRoutes);
 
+const jamRoutes = require('./routes/jam.routes')
+app.use("/api", jamRoutes);
+
+
 
 // app.use((req, res, next) => {
 //     // If no routes match, send them the React HTML.

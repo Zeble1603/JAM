@@ -6,7 +6,9 @@ const placeSchema = new Schema({
   coordinates:{type:Object},
   address:{type:String,required:true},
   photos:{type:Array},
-  user:{type: Schema.Types.ObjectId, ref: 'User'}
+  user:{type: Schema.Types.ObjectId, ref: 'User'},
+  jams:[{type: Schema.Types.ObjectId, ref: 'Jam'}],
+
 });
 
 module.exports = model("Place", placeSchema);

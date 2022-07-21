@@ -17,7 +17,7 @@ const authRouter = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
 const commentRouter = require("./routes/comment.routes");
-app.use("/api", commentRouter);
+app.use("/api/comment", commentRouter);
 
 
 

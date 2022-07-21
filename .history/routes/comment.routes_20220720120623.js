@@ -4,10 +4,11 @@ const Comment = require('../models/Comment.model');
 
 // Getting all the comments
 router.get('/comments',(req,res,next)=>{
-     Comment.find()
+    res.json('all good')
+    /* Comment.find()
     .populate('user')
     .then(allComments => res.json(allComments))
-    .catch(err => res.json(err));
+    .catch(err => res.json(err)); */
 })
 
 //Creating a new comment
@@ -37,7 +38,7 @@ router.post('/comments', (req, res, next) => {
   });
 
   //Delete a comment
-  router.delete('/comments/:commentId', (req, res, next) => {
+  router.delete('/comment/:commentId', (req, res, next) => {
     const { commentId } = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(commentId)) {

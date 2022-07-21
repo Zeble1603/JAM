@@ -1,8 +1,10 @@
-const router = require("express").Router();
 const mongoose = require('mongoose');
-
 const Place = require('../models/Place.model');
 const User = require('../models/User.model');
+require('../models/Comment.model');
+require('../models/Jam.model');
+
+const router = require("express").Router();
 
 //GET
 router.get('/users',(req,res,next)=>{

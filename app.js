@@ -22,6 +22,8 @@ app.use("/api", placeRoutes);
 const jamRoutes = require('./routes/jam.routes')
 app.use("/api", jamRoutes);
 
+const userRoutes = require('./routes/user.routes')
+app.use("/api", userRoutes);
 
 
 // app.use((req, res, next) => {

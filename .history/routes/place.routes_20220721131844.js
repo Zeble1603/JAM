@@ -32,8 +32,8 @@ router.get('/places/:placeId',(req,res,next)=>{
 
 //POST --> ADD USERS CASTING WITH USER ID
 router.post('/places',(req,res,next)=>{
-    const {name, address, photo,coordinates, userId} = req.body
-    Place.create({name, address,coordinates, photo, owner:userId})
+    const {name, address, photos, userId} = req.body
+    Place.create({name, address, photos, owner:userId})
     .then((place)=>{
         return User.findByIdAndUpdate(userId,{$push: { places: place._id }})
     })

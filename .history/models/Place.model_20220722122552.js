@@ -5,7 +5,7 @@ const placeSchema = new Schema({
   name: { type: String, required: true },
   coordinates: { type: Array },
   address: { type: String, required: true },
-  photo: { type: String },
+  photo: { type: Array },
   owner: { type: Schema.Types.ObjectId, ref: "User" },
   jams: [{ type: Schema.Types.ObjectId, ref: "Jam" }],
 });

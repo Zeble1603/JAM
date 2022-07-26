@@ -5,7 +5,8 @@ const userSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   username: { type: String, required: true },
-  type:{type:String,enum:['host','musician'],required: true},
+  type:{type:String,enum:['host','musician']},
+  picture:{type: String},
   //Musicians
   instrument:{type:String,enum:['Guitar','Drums','Bass','Piano','Singer','Harmonica','Saxophone','Trumpet','Other']},
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],

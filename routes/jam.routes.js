@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 
 const Place = require('../models/Place.model');
 const Jam = require('../models/Jam.model');
+const User = require('../models/User.model');
+
+
 
 //POST
 router.post('/jams',(req,res,next)=>{
-    const {name, date, description, limit, categories, placeId} = req.body
-    let convertedDate = new Date(date)
-    Jam.create({name, date:convertedDate, description, categories, limit, place:placeId})
+    const {name, date, description, location, categories, placeId,userId} = req.body
+    Jam.create({name, date, description, categories, location, place:placeId,host:userId})
     .then((jam)=>{
         return Place.findByIdAndUpdate(placeId,{$push: { jams: jam._id }})
     })
@@ -19,8 +21,8 @@ router.post('/jams',(req,res,next)=>{
 //GET 
 router.get('/jams',(req,res,next)=>{
     Jam.find()
-    .populate('place')
     .populate('host')
+    .populate('place')
     .then(allJams => res.json(allJams))
     .catch(err=>next(err))
 })
@@ -59,6 +61,15 @@ router.delete('/jams/:jamId',(req,res,next)=>{
         res.status(400).json({ message: 'Specified id is not valid' });
         return;
     }
+    Jam.findById(jamId)
+    .then((jam)=>{
+        User.find({_id:{$in: jam.musicians}})
+        .then((users)=>{
+            for(let user of users){
+                user.eventsSubscribed = user.eventsSubscribed.filter(eventId=>eventId!=jamId)
+            }
+        })
+    })
     Jam.findByIdAndDelete(jamId)
     .then(() => res.json({message: `Place with id ${jamId} was removed succesfully`}))
     .catch(err=>next(err))

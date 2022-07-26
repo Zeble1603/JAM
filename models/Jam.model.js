@@ -13,6 +13,7 @@ const jamSchema = new Schema({
     comments:[{type: Schema.Types.ObjectId, ref: 'Comment'}],
     description:{type:String},
     categories:{type:Array},
+    location:{type:Object}
 });
 
 module.exports = model("Jam", jamSchema);

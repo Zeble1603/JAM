@@ -10,9 +10,10 @@ const User = require('../models/User.model');
 //POST
 router.post('/jams',(req,res,next)=>{
     const {name, date, description, location, categories, placeId,userId} = req.body
-    Jam.create({name, date, description, categories, location, place:placeId,host:userId})
+    Jam.create({name, date, description, categories, location ,host:userId})
+    
     .then((jam)=>{
-        return Place.findByIdAndUpdate(placeId,{$push: { jams: jam._id }})
+        return User.findByIdAndUpdate(userId,{$push: { jamsCreated: jam._id }})
     })
     .then(response => res.json(response))
     .catch(err=>next(err))
@@ -63,12 +64,14 @@ router.delete('/jams/:jamId',(req,res,next)=>{
     }
     Jam.findById(jamId)
     .then((jam)=>{
-        User.find({_id:{$in: jam.musicians}})
-        .then((users)=>{
-            for(let user of users){
-                user.eventsSubscribed = user.eventsSubscribed.filter(eventId=>eventId!=jamId)
-            }
-        })
+        if(jam.musicians.length > 0){
+            User.find({_id:{$in: jam.musicians}})
+            .then((users)=>{
+                for(let user of users){
+                    user.eventsSubscribed = user.eventsSubscribed.filter(eventId=>eventId!=jamId)
+                }
+            })
+        }
     })
     Jam.findByIdAndDelete(jamId)
     .then(() => res.json({message: `Place with id ${jamId} was removed succesfully`}))

@@ -8,6 +8,8 @@ const userSchema = new Schema({
   type:{type:String,enum:['host','musician']},
   picture:{type: String},
   //Musicians
+  about:{type: String},
+  instruments:[{type:String}],
   instrument:{type:String,enum:['Guitar','Drums','Bass','Piano','Singer','Harmonica','Saxophone','Trumpet','Other']},
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   eventsSubscribed:[{type:Schema.Types.ObjectId, ref:'Jam'}],

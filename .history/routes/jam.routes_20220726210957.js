@@ -10,7 +10,6 @@ const User = require('../models/User.model');
 //POST
 router.post('/jams',(req,res,next)=>{
     const {name, date, description, location, categories, placeId,userId} = req.body
-    console.log(req.body)
     Jam.create({name, date, description, categories, location, place:placeId,host:userId})
     .then((jam)=>{
         return Place.findByIdAndUpdate(placeId,{$push: { jams: jam._id }})
